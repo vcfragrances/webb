@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>VC Fragances</title>
+
+<style>
+
+/* ===== RESET ===== */
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    display:flex;
+    min-height:100vh;
+    background:#000;
+    opacity:0;
+    animation:fadeInBody 1.5s ease forwards;
+}
+
+/* ===== FADE IN BODY ===== */
+@keyframes fadeInBody{
+    to{ opacity:1; }
+}
+
+/* ===== SIDEBAR ===== */
+
+.sidebar{
+    width:260px;
+    background:#0f0f0f;
+    color:white;
+    padding:40px 30px;
+    position:fixed;
+    height:100vh;
+}
+
+.logo{
+    text-align:center;
+    margin-bottom:50px;
+}
+
+.logo img{
+    width:80px;
+    margin-bottom:10px;
+}
+
+.menu a{
+    display:block;
+    text-decoration:none;
+    color:white;
+    margin:15px 0;
+    transition:0.3s;
+    cursor:pointer;
+}
+
+.menu a:hover{
+    color:#c9a227;
+    transform:translateX(5px);
+}
+
+.submenu{
+    display:none;
+    margin-left:15px;
+}
+
+.submenu a{
+    font-size:14px;
+    color:#aaa;
+}
+
+.submenu.show{
+    display:block;
+}
+
+/* ===== CONTENT ===== */
+
+.content{
+    margin-left:260px;
+    width:100%;
+}
+
+/* ===== HERO CINEMATICO ===== */
+
+.hero{
+    height:100vh;
+    background-image:url("fondo.jpg");
+    background-size:110%;
+    background-position:center;
+    position:relative;
+    display:flex;
+    align-items:end;
+    padding:60px;
+    color:white;
+    animation:movimientoCine 25s ease-in-out infinite alternate;
+}
+
+
+@keyframes movimientoCine{
+    0%{ background-position:center top; }
+    50%{ background-position:center center; }
+    100%{ background-position:center bottom; }
+}
+
+@keyframes blurDesaparece{
+    to{ backdrop-filter: blur(0px); }
+}
+
+.hero-text{
+    position:relative;
+    z-index:2;
+}
+
+/* ===== SECCIONES ===== */
+
+.seccion{
+    min-height:100vh;
+    padding:100px 60px;
+    background:#111;
+    color:white;
+    opacity:0;
+    transform:translateY(40px);
+    transition:0.8s ease;
+}
+
+.seccion.visible{
+    opacity:1;
+    transform:translateY(0);
+}
+
+.seccion h2{
+    margin-bottom:40px;
+    font-size:32px;
+}
+
+/* ===== PRODUCTOS ===== */
+
+.productos{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap:25px;
+}
+
+.card{
+    background:#1c1c1c;
+    padding:20px;
+    border-radius:12px;
+    transition:0.4s;
+    cursor:pointer;
+    text-align:center;
+}
+
+.card:hover{
+    transform:scale(1.07);
+}
+
+.card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+    border-radius:10px;
+    margin-bottom:10px;
+}
+
+/* ===== MODAL ===== */
+
+#modal{
+    display:none;
+    position:fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.9);
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+}
+
+#modalContenido{
+    background:#111;
+    padding:50px;
+    border-radius:20px;
+    width:85%;
+    max-width:900px;
+    display:flex;
+    gap:50px;
+    transform:scale(0.8);
+    opacity:0;
+    transition:0.4s ease;
+    color:#bbb;
+}
+
+#modalContenido img{
+    width:350px;
+    border-radius:15px;
+}
+
+#modalContenido h2{
+    color:#bbb;
+}
+
+.precio{
+    color:#c9a227;
+    font-weight:bold;
+    margin:15px 0;
+    font-size:20px;
+}
+
+button{
+    padding:12px 25px;
+    background:#c9a227;
+    border:none;
+    cursor:pointer;
+    border-radius:8px;
+    margin-top:20px;
+    font-weight:bold;
+}
+
+button:hover{
+    opacity:0.8;
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="sidebar">
+    <div class="logo">
+        <img src="1e9415c3-3a07-4b06-92ed-88dd8c9fe4a5.png">
+        <h3>VC FRAGANCES</h3>
+    </div>
+
+    <div class="menu">
+        <a href="#inicio">Inicio</a>
+
+        <a onclick="toggleCatalogo()">Catálogo ▾</a>
+        <div class="submenu" id="catalogo">
+            <a href="#hombre">Hombre</a>
+            <a href="#mujer">Mujer</a>
+        </div>
+
+        <a href="#nosotros">Acerca de nosotros</a>
+        <a href="#contacto">Contacto</a>
+    </div>
+</div>
+
+<div class="content">
+
+<section id="inicio" class="hero">
+    <div class="hero-text">
+        <h1>Descubre tu esencia</h1>
+        <p>Fragancias exclusivas</p>
+    </div>
+</section>
+
+<!-- HOMBRE -->
+<section id="hombre" class="seccion">
+    <h2>Perfumes Hombre</h2>
+    <div class="productos">
+
+        <!-- 6 slots -->
+        <div class="card" onclick="abrirModal('Azzaro The Most Wanted Intense','$39.990','Azzaro The Most Wanted Intense: amaderada aromática con bergamota fresca, lavanda y un fondo sensual de musgo/licor ➝ Solo pago con transferencia‼','images-fotor-bg-remover-2026021314619.png')">
+            <img src="images-fotor-bg-remover-2026021314619.png"><p>Azzaro The Most Wanted Intense</p>
+        </div>
+        <div class="card" onclick="abrirModal('Stronger with you parfum','$35.000','Armani Stronger With You Parfum: cálida y dulce con pimienta rosa, lavanda, vainilla y castaña ➝ Solo pago con transferencia‼','w=1200,h=1200,fit=pad-fotor-bg-remover-20260213142224.png')">
+            <img src="w=1200,h=1200,fit=pad-fotor-bg-remover-20260213142224.png"><p>Stronger with you</p>
+        </div>
+        <div class="card" onclick="abrirModal('Invictus Victory','$35.990','Paco Rabanne Invictus Victory: fresco y energético con limón, lavanda y fondo dulce de vainilla/ámbar ➝ Solo pago con transferencia‼','1200-fotor-bg-remover-20260213141738.png')">
+            <img src="1200-fotor-bg-remover-20260213141738.png"><p>Invictus Victory</p>
+        </div>
+        <div class="card" onclick="abrirModal('Scandal intense','$37.990','Jean Paul Gaultier Scandal Intense: intenso y masculino con salvia, vetiver profundo y cuero elegante ➝ Solo pago con transferencia‼','w=1200,h=1200,fit=pad (2).png')">
+            <img src="w=1200,h=1200,fit=pad (2).png"><p>Scandal intense JPG</p>
+        </div>
+        <div class="card" onclick="abrirModal('Invictus Edt 5','$35.000','Paco Rabanne Invictus EDT: vibrante y acuático con notas marinas, pomelo y maderas ➝ Solo pago con transferencia‼','2000344273519-1.png')">
+            <img src="2000344273519-1.png"><p>Invictus Edt</p>
+        </div>
+        <div class="card" onclick="abrirModal('Valentino born in roma','$39.990','Un perfume aromático especiado con notas picantes, lavanda y vetiver sobre maderas profundas masculinas ➝ Solo pago con transferencia‼','112152999-0000-002.png')">
+            <img src="112152999-0000-002.png"><p>Valentino Born In Roma</p>
+        </div>
+
+    </div>
+</section>
+
+<!-- MUJER -->
+<section id="mujer" class="seccion">
+    <h2>Perfumes Mujer</h2>
+    <div class="productos">
+
+        <div class="card" onclick="abrirModal('Versace Crystal noir','$35.000','Perfume floral-oriental sensual con salida especiada de cardamomo, pimienta y jengibre, corazón de gardenia y peonía, y base cálida de sándalo, almizcle y ámbar ➝ Solo pago con transferencia‼','803574999-0000-002.png')">
+            <img src="803574999-0000-002.png"><p>Versace Crystal Noir</p>
+        </div>
+        <div class="card" onclick="abrirModal('Perfume Mujer 2','35.990','Perfume oriental floral fresco con pera, naranja y bergamota, corazón de neroli, jazmín y notas de vainilla, ámbar y musk cálido ➝ Solo pago con transferencia‼','images (1).jfif.png')">
+            <img src="images (1).jfif.png"><p>Prada Paradoxe</p>
+        </div>
+        <div class="card" onclick="abrirModal('Proximamente','','Proximamente.','pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg')">
+            <img src="pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg"><p>Perfume Mujer 3</p>
+        </div>
+        <div class="card" onclick="abrirModal('Proximamente','','Proximamente','pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg')">
+            <img src="pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg"><p>Perfume Mujer 4</p>
+        </div>
+        <div class="card" onclick="abrirModal('Perfume Mujer 5','','Proximamente','pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg')">
+            <img src="pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg"><p>Perfume Mujer 5</p>
+        </div>
+        <div class="card" onclick="abrirModal('Perfume Mujer 6','','Proximamente','pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg')">
+
+            <img src="pngtree-coming-soon-logo-vector-template-design-illustration-png-image_2091063.jpg"><p>Perfume Mujer 6</p>
+        </div>
+
+    </div>
+</section>
+
+<section id="nosotros" class="seccion">
+    <h2>Sobre Nosotros</h2>
+    <p>
+
+Somos una tienda ubicada en Chile dedicada a ofrecer fragancias que transmiten personalidad, carácter y elegancia. Creemos que un perfume no es solo un aroma, es una extensión de tu estilo, una forma de expresión y una huella que dejas en cada lugar al que llegas. Por eso trabajamos con una selección pensada para distintos gustos y momentos: desde opciones frescas y versátiles para el día a día, hasta aromas intensos, profundos y seductores ideales para ocasiones especiales.
+
+Nos enfocamos en brindar una experiencia cercana, clara y segura, entregando información detallada de cada fragancia para que puedas elegir con confianza. Nuestro compromiso es ofrecer una atención personalizada, resolver tus dudas y ayudarte a encontrar ese perfume que realmente conecte contigo y potencie tu presencia.
+
+Realizamos envíos a todo Chile a través de Starken, asegurando que tu pedido llegue de manera rápida y confiable, sin importar la región en la que te encuentres. Trabajamos de forma directa y transparente para que tu experiencia de compra sea simple y satisfactoria.
+
+Si buscas elevar tu estilo y marcar diferencia con tu aroma, estás en el lugar correcto.
+
+📍 Somos de Chile
+🚚 Envíos a todo Chile vía Starken
+📲 Instagram: @vc.fragancess
+
+Tu aroma habla antes que tú… haz que sea inolvidable. ✨</p>
+</section>
+
+<section id="contacto" class="seccion">
+    <h2>Contacto</h2>
+    <p>Email: contacto@vcfragancess@gmail.com</p>
+    <p>WhatsApp: +56 997195013</p>
+    <p>Instagram @vc.fragancess</p>
+</section>
+
+</div>
+
+<div id="modal" onclick="cerrarModal()">
+    <div id="modalContenido" onclick="event.stopPropagation()">
+        <img id="modalImg">
+        <div>
+            <h2 id="modalTitulo"></h2>
+            <div class="precio" id="modalPrecio"></div>
+            <p id="modalDesc"></p>
+            <button onclick="cerrarModal()">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<script>
+
+function toggleCatalogo(){
+    document.getElementById("catalogo").classList.toggle("show");
+}
+
+function abrirModal(nombre,precio,descripcion,imagen){
+    let modal=document.getElementById("modal");
+    let contenido=document.getElementById("modalContenido");
+    document.getElementById("modalTitulo").innerText=nombre;
+    document.getElementById("modalPrecio").innerText=precio;
+    document.getElementById("modalDesc").innerText=descripcion;
+    document.getElementById("modalImg").src=imagen;
+    modal.style.display="flex";
+    setTimeout(()=>{
+        contenido.style.transform="scale(1)";
+        contenido.style.opacity="1";
+    },10);
+}
+
+function cerrarModal(){
+    let modal=document.getElementById("modal");
+    let contenido=document.getElementById("modalContenido");
+    contenido.style.transform="scale(0.8)";
+    contenido.style.opacity="0";
+    setTimeout(()=>{
+        modal.style.display="none";
+    },300);
+}
+
+/* ===== ANIMACION AL SCROLL ===== */
+
+const secciones=document.querySelectorAll(".seccion");
+
+window.addEventListener("scroll",()=>{
+    secciones.forEach(sec=>{
+        const top=sec.getBoundingClientRect().top;
+        if(top < window.innerHeight - 100){
+            sec.classList.add("visible");
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>
